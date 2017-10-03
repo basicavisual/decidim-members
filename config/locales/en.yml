@@ -1,0 +1,15 @@
+---
+en:
+  decidim:
+    members:
+      index:
+        title: Members
+        members:
+          one: One member
+          other: "%{count} members"
+      show:
+        areas_of_interest: I'm interested in %{areas}.
+        country: I'm from %{country}.
+        i_speak: I speak %{languages}.
+    menu:
+      members: Members

@@ -1,0 +1,37 @@
+<% provide :meta_title, @member.name %>
+<% add_decidim_page_title @member.name %>
+<% add_decidim_meta_tags(
+  image_url: @member.avatar.url,
+  description: @member.name,
+) %>
+
+<main class="wrapper">
+  <div class="row column">
+    <h1 class="heading1 page-title"><%= @member.name %></h1>
+  </div>
+
+  <div class="row">
+    <div class="columns large-4">
+      <%= image_tag @member.avatar.url %>
+    </div>
+
+    <div class="columns large-8">
+      <% if country = @member.country %>
+        <p><%= t 'members.show.country', country: country, scope: 'decidim' %></p>
+      <% end %>
+
+      <% if languages = @member.languages.presence %>
+        <p><%= t 'members.show.i_speak', languages: languages.to_sentence, scope: 'decidim' %></p>
+      <% end %>
+
+      <% if areas_of_interest = @member.areas_of_interest.presence %>
+        <p><%= t 'memmbers.show.areas_of_interest', areas: areas_of_interest.to_sentence, scope: 'decidim' %></p>
+      <% end %>
+
+      <% if @member.about_me.present? %>
+        <%= sanitize @member.about_me %>
+      <% end %>
+    </div>
+  </div>
+</main>
+
