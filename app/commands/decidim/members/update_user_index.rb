@@ -34,7 +34,7 @@ module Decidim
         {
           'A' => presenter.name,
           'B' => strip_tags(presenter.about_me),
-          'C' => presenter.areas_of_interest,
+          'C' => presenter.areas_of_interest.join(' '),
           'D' => (presenter.languages || []).join(' ') + " #{presenter.country}"
         }
       end

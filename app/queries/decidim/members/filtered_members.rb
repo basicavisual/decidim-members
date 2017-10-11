@@ -18,7 +18,7 @@ module Decidim
           # sql to create the query vector that is matched against the tsv
           ActiveRecord::Base.send :sanitize_sql_array, [
             "to_tsquery(:config, :query) query",
-            config: 'english', query: searchable_query
+            config: UpdateUserIndex::CONFIG, query: searchable_query
           ]
         end
 
