@@ -21,8 +21,6 @@ module Decidim
 
         def define_abilities
           can :read, Decidim::User
-          # TODO move member profiles here
-          # currently in decidim-core/app/models/decidim/abilities/base_ability.rb
         end
       end
     end

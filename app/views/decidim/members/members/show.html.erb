@@ -16,21 +16,7 @@
     </div>
 
     <div class="columns large-8">
-      <% if country = @member.country %>
-        <p><%= t 'members.show.country', country: country, scope: 'decidim' %></p>
-      <% end %>
-
-      <% if languages = @member.languages.presence %>
-        <p><%= t 'members.show.i_speak', languages: languages.to_sentence, scope: 'decidim' %></p>
-      <% end %>
-
-      <% if areas_of_interest = @member.areas_of_interest.presence %>
-        <p><%= t 'memmbers.show.areas_of_interest', areas: areas_of_interest.to_sentence, scope: 'decidim' %></p>
-      <% end %>
-
-      <% if @member.about_me.present? %>
-        <%= sanitize @member.about_me %>
-      <% end %>
+      <%= render partial: 'decidim/members/user_profile_bottom', locals: { user: @member } %>
     </div>
   </div>
 </main>
