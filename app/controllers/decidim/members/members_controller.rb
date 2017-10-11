@@ -9,7 +9,8 @@ module Decidim
         authorize! :read, Decidim::User
         @members = MemberCollectionPresenter.new(
           organization: current_organization,
-          page: params[:page].to_i
+          page: params[:page].to_i,
+          query: params[:q]
         ).attach_controller self
       end
 

@@ -5,9 +5,10 @@ module Decidim
     class MemberCollectionPresenter < Rectify::Presenter
       attribute :organization, Decidim::User
       attribute :page, Integer
+      attribute :query, String
 
       def count
-        org_members.count
+        unsorted_org_members.count
       end
 
       def render_pagination
@@ -22,7 +23,7 @@ module Decidim
 
 
       def collection
-        @collection ||= org_members.query.page(page).per(12)
+        @collection ||= org_members.page(page).per(12)
       end
 
       def decorated_members
@@ -31,8 +32,26 @@ module Decidim
         }
       end
 
+      def unsorted_org_members
+        @org_members ||= begin
+          scope = OrganizationMembers.new(organization).query
+          if query.present?
+            scope = FilteredMembers.for(query, scope)
+          end
+          scope
+        end
+      end
+
       def org_members
-        @org_members ||= OrganizationMembers.new(organization)
+        if query.present?
+          users = Decidim::User.table_name
+          unsorted_org_members.
+            select("#{users}.*, ts_rank(#{users}.tsv, query, 1|32) as score").
+            order('score ASC')
+        else
+          unsorted_org_members.order name: :asc
+
+        end
       end
 
     end

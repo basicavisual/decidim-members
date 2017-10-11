@@ -9,3 +9,4 @@ module Decidim
     # Your code goes here...
   end
 end
+

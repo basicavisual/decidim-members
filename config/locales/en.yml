@@ -7,6 +7,11 @@ en:
         members:
           one: One member
           other: "%{count} members"
+        members_found:
+          one: One member found
+          other: "%{count} members found"
+        search: Search
+        show_all: Show all
       show:
         areas_of_interest: I'm interested in %{areas}.
         country: I'm from %{country}.
