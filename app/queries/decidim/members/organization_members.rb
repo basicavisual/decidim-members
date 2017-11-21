@@ -8,7 +8,7 @@ module Decidim
       end
 
       def query
-        @organization.users.no_active_invitation.order(name: :asc)
+        @organization.users.not_deleted.no_active_invitation.order(name: :asc)
       end
     end
   end
