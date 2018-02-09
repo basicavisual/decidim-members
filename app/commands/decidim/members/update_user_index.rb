@@ -29,8 +29,10 @@ module Decidim
 
       private
 
+      # FIXME this relies on the UserPresenter patch that is part of the main
+      # application
       def index_data
-        presenter = MemberPresenter.new(user: @user)
+        presenter = Decidim::UserPresenter.new(@user)
         {
           'A' => presenter.name,
           'B' => strip_tags(presenter.about_me),

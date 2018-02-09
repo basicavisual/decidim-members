@@ -14,13 +14,18 @@ module Decidim
       isolate_namespace Decidim::Members
 
       routes do
-        resources :members, only: [:index, :show], path: "members"
+        resources(:members, only: [:index, :show], path: "members") do
+          collection do
+            get :export
+          end
+        end
       end
 
       initializer "decidim_assemblies.inject_abilities_to_user" do |_app|
         Decidim.configure do |config|
           config.abilities += [
             "Decidim::Members::Abilities::UserAbility",
+            "Decidim::Members::Abilities::AdminAbility",
           ]
         end
       end

@@ -14,6 +14,16 @@ module Decidim
         ).attach_controller self
       end
 
+      def export
+        authorize! :export, :users
+        users = OrganizationMembers.new(current_organization).query
+        send_data(
+          GenerateUserCsv.(users),
+          type: 'text/csv; header=present',
+          filename: 'users.csv'
+        )
+      end
+
       def show
         authorize! :read, Decidim::User
         user = UserPresenter.new current_member
