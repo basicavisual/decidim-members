@@ -3,7 +3,7 @@
 module Decidim
   module Members
     class MemberCollectionPresenter < Rectify::Presenter
-      attribute :organization, Decidim::User
+      attribute :organization, Decidim::Organization
       attribute :page, Integer
       attribute :query, String
 
@@ -16,7 +16,7 @@ module Decidim
       end
 
       def render_current_page
-        render collection: decorated_members, partial: 'member'
+        render collection: decorated_members, partial: 'user'
       end
 
       private
@@ -28,7 +28,7 @@ module Decidim
 
       def decorated_members
         collection.map{ |m|
-          MemberPresenter.new(user: m).attach_controller controller
+          ::Decidim::UserPresenter.new(m)
         }
       end
 

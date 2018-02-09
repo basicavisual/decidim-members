@@ -15,8 +15,9 @@ module Decidim
       end
 
       def show
-        authorize! :read, current_member
-        @member = MemberPresenter.new(user: current_member).attach_controller self
+        authorize! :read, Decidim::User
+        user = UserPresenter.new current_member
+        redirect_to user.profile_path, status: :moved_permanently
       end
 
       private
