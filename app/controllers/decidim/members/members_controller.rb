@@ -4,9 +4,10 @@ module Decidim
   module Members
 
     class MembersController < Decidim::ApplicationController
+      include Decidim::NeedsPermission
 
       def index
-        authorize! :read, Decidim::User
+        enforce_permission_to :view, :members
         @members = MemberCollectionPresenter.new(
           organization: current_organization,
           page: params[:page].to_i,
@@ -15,7 +16,7 @@ module Decidim
       end
 
       def export
-        authorize! :export, :users
+        enforce_permission_to :export, :members
         users = OrganizationMembers.new(current_organization).query
         send_data(
           GenerateUserCsv.(users),
@@ -25,12 +26,20 @@ module Decidim
       end
 
       def show
-        authorize! :read, Decidim::User
+        enforce_permission_to :view, :members
         user = UserPresenter.new current_member
         redirect_to user.profile_path, status: :moved_permanently
       end
 
       private
+
+      def permission_scope
+        :global
+      end
+
+      def permission_class_chain
+        [ Decidim::Members::Permissions ]
+      end
 
       def current_member
         @current_member ||= OrganizationMembers.new(current_organization).query.find params[:id]
