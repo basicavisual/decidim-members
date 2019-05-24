@@ -4,7 +4,7 @@ require 'csv'
 
 module Decidim
   module Members
-    class GenerateUserCsv < Rectify::Command
+    class GenerateUserCsv
 
       def initialize(scope)
         @scope = scope
@@ -17,14 +17,12 @@ module Decidim
       def call
         CSV.generate(col_sep: ';', encoding: 'UTF-8') do |csv|
           csv << HEADERS
-          @scope.find_in_batches do |group|
-            group.each do |user|
-              csv << [
-                user.id, user.email, user.name, user.nickname,
-                format_date(user.invitation_sent_at),
-                user.invited_by_id
-              ]
-            end
+          @scope.find_each do |user|
+            csv << [
+              user.id, user.email, user.name, user.nickname,
+              format_date(user.invitation_sent_at),
+              user.invited_by_id
+            ]
           end
         end
       end

@@ -18,8 +18,9 @@ module Decidim
       def export
         enforce_permission_to :export, :members
         users = OrganizationMembers.new(current_organization).query
+        data = GenerateUserCsv.new(users).call
         send_data(
-          GenerateUserCsv.(users),
+          data,
           type: 'text/csv; header=present',
           filename: 'users.csv'
         )
