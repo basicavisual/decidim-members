@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "decidim-core", ">= 0.13.0"
   s.add_dependency "rails", "~> 5.2.0"
-  s.add_dependency "sanitize", "~> 4.5"
+  s.add_dependency "sanitize"
 
   s.add_development_dependency "decidim-dev", '>= 0.9.0'
   s.add_development_dependency "decidim-admin", '>= 0.9.0'
