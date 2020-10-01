@@ -7,4 +7,8 @@ Decidim.register_participatory_space(:members) do |participatory_space|
   participatory_space.context(:admin) do |ctx|
     ctx.engine = Decidim::Members::AdminEngine
   end
+  # this module doesn't have any participatory spaces
+  participatory_space.participatory_spaces do |organization|
+    Decidim::ParticipatoryProcess.none
+  end
 end
