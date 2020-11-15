@@ -5,7 +5,6 @@ require "active_support/all"
 
 require "decidim/core"
 require "sanitize"
-require_dependency "decidim/members/patches/update_account_patch"
 
 module Decidim
   module Members
@@ -28,11 +27,6 @@ module Decidim
                     position: 2.5,
                     active: :inclusive
         end
-      end
-
-      # TODO looks like we lose this patch in dev mode after code reloads :()
-      initializer "patch core classes" do
-        Decidim::Members::Patches::UpdateAccountPatch.apply
       end
     end
   end

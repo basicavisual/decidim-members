@@ -34,9 +34,11 @@ module Decidim
 
       def unsorted_org_members
         @org_members ||= begin
-          scope = OrganizationMembers.new(organization).query
-          if query.present?
-            scope = FilteredMembers.for(query, scope)
+          scope = if query.present?
+            r = Decidim::Search.call query, organization, resource_type: "Decidim::User"
+            r.dig :ok, "Decidim::User", :results
+          else
+            OrganizationMembers.new(organization).query
           end
           scope
         end
@@ -45,10 +47,7 @@ module Decidim
       def org_members
         if query.present?
           session[:members_ordering] = nil
-          users = Decidim::User.table_name
-          unsorted_org_members.
-            select("#{users}.*, ts_rank(#{users}.tsv, query, 1|32) as score").
-            order('score ASC')
+          unsorted_org_members
         else
           unsorted_org_members.reorder Hash[[session_ordering]]
         end
