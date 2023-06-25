@@ -5,14 +5,18 @@ module Decidim
 
     class MembersController < Decidim::ApplicationController
       include Decidim::NeedsPermission
+      include FilterResource
+      helper_method :filter
+      helper Decidim::FiltersHelper
 
       def index
         enforce_permission_to :view, :members
+
         @members = MemberCollectionPresenter.new(
-          organization: current_organization,
-          page: params[:page].to_i,
-          query: params[:q]
-        ).attach_controller self
+              organization: current_organization,
+              page: params[:page].to_i,
+              params: params
+            ).attach_controller self
       end
 
       def export
@@ -46,6 +50,28 @@ module Decidim
         @current_member ||= OrganizationMembers.new(current_organization).query.find params[:id]
       end
 
+      def search_klass
+        MemberSearch 
+      end
+
+      def default_filter_params
+        {
+          search_text: "",
+          working_groups: "",
+          areas_of_interest: ""
+        }
+      end
+
+      def context_params
+        {
+          organization: current_organization,
+          current_user: current_user
+        }
+      end
+
+      def query_params
+        params.permit([[:filters][:areas_of_interest], [:filters][:working_groups], [:filters][:search_text]]).to_h.deep_symbolize_keys
+      end
     end
   end
 end

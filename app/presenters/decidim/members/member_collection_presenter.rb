@@ -5,7 +5,7 @@ module Decidim
     class MemberCollectionPresenter < Rectify::Presenter
       attribute :organization, Decidim::Organization
       attribute :page, Integer
-      attribute :query, String
+      attribute :params, ActionController::Parameters
 
       def count
         unsorted_org_members.count
@@ -33,19 +33,16 @@ module Decidim
       end
 
       def unsorted_org_members
-        @org_members ||= begin
-          scope = if query.present?
-            r = Decidim::Search.call query, organization, resource_type: "Decidim::User"
-            r.dig :ok, "Decidim::User", :results
-          else
-            OrganizationMembers.new(organization).query
-          end
-          scope
+        if params[:filter].present?
+          filters = set_params
+          @org_members ||= MemberSearch.new(organization, filters).query
+        else
+          @org_members ||= MemberSearch.new(organization, nil).query
         end
       end
 
       def org_members
-        if query.present?
+        if params[:filter].present?
           session[:members_ordering] = nil
           unsorted_org_members
         else
@@ -55,6 +52,14 @@ module Decidim
 
       def session_ordering
         session[:members_ordering] ||= [[:id, :name, :email], [:asc, :desc]].map(&:sample)
+      end
+
+      def set_params
+        {
+          search_text: params[:filter][:search_text],
+          working_groups: params[:filter][:working_groups],
+          areas_of_interest: params[:filter][:areas_of_interest]
+        }
       end
 
     end
