@@ -1,0 +1,5 @@
+<% if params[:filter].present? %>
+  <%= t "members.index.members_found", scope: "decidim", count: count %>
+<% else %>
+  <%= t "members.index.members", scope: "decidim", count: count %>
+<% end %>

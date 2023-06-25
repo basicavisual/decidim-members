@@ -1,0 +1,9 @@
+var $members = $('#members');
+var $membersCount = $('#members-count');
+var $orderFilterInput = $('.order_filter');
+
+$members.html('<%= j(render partial: "members", locals: { members: @members }) %>');
+$membersCount.html('<%= j(render partial: "count", locals: { count: @members.count}) %>');
+
+
+
