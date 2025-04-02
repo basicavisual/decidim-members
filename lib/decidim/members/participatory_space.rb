@@ -11,4 +11,5 @@ Decidim.register_participatory_space(:members) do |participatory_space|
   participatory_space.participatory_spaces do |organization|
     Decidim::ParticipatoryProcess.none
   end
+  participatory_space.model_class_name = "Decidim::Members"
 end

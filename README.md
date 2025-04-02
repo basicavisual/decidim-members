@@ -14,7 +14,7 @@ For now, the plugin depends on a small core patch which is located in the
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'decidim-members'
+gem 'decidim-members', git: "https://github.com/basicavisual/decidim-members"
 ```
 
 And then execute:
