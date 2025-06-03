@@ -27,7 +27,7 @@ module Decidim
       private
 
       def active_users
-        @organization.users.not_deleted.no_active_invitation.order(name: :asc)
+        @organization.users.not_deleted.no_active_invitation.not_blocked.order(name: :asc)
       end
 
       def search_text(search)

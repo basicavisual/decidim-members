@@ -2,7 +2,7 @@
   <article class="card card--process">
     <%= link_to user.profile_path, class: "card__link" do %>
       <div class="card__image-top"
-           style="background-image:url(<%= user.avatar.url %>)"></div>
+           style="background-image:url(<% if user.avatar.attached? %><%= url_for user.avatar.url only_path: true %><% end %>)"></div>
     <% end %>
     <div class="card__content">
       <%= link_to user.profile_path, class: "card__link" do %>
