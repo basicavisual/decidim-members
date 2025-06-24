@@ -27,3 +27,17 @@ Nothing.
 ### Fixed
 
 - Updated profile pictures to use activestorage
+
+## [0.4.3](https://github.com/basicavisual/decidim-members/tree/0.4.3)
+
+### Added
+
+Nothing.
+
+### Changed
+
+Nothing.
+
+### Fixed
+
+- Stops registering this gem as a participatory_space and opts for registering as global engine. 

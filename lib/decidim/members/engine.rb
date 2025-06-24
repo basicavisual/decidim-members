@@ -13,7 +13,7 @@ module Decidim
       isolate_namespace Decidim::Members
 
       routes do
-        resources(:members, only: [:index, :show], path: "members") do
+        resources(:members, only: [:index, :show]) do
           collection do
             get :export
           end

@@ -23,6 +23,5 @@ Gem::Specification.new do |s|
   s.add_dependency "sanitize", "~> 6.1.3"
 
   s.add_development_dependency "decidim-dev", '~> 0.25.2'
-  s.add_development_dependency "decidim-admin", '~> 0.25.2'
   s.add_development_dependency "sqlite3", "~> 1.4"
 end
