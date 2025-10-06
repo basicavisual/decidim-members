@@ -11,7 +11,7 @@ module Decidim
       end
 
       HEADERS = [
-        'Id','Email','Name','Nickname', 'Invited At', 'Invited By'
+        'Id','Email','Name','Nickname', 'Invited At', 'Invited By', 'Country'
       ].freeze
 
       def call
@@ -21,7 +21,7 @@ module Decidim
             csv << [
               user.id, user.email, user.name, user.nickname,
               format_date(user.invitation_sent_at),
-              user.invited_by_id
+              invited_by(user), get_country_code(user)
             ]
           end
         end
@@ -31,6 +31,21 @@ module Decidim
         I18n.l date if date
       end
 
+      def invited_by(user)
+        if user.invited_by
+          user.invited_by.nickname
+        else
+          "N/A"
+        end
+      end
+
+      def get_country_code(user)
+        if user.profile.nil?
+          "No profile"
+        else
+          ISO3166::Country[user.profile['country']]
+        end
+      end
     end
   end
 end

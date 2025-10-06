@@ -1,4 +1,34 @@
 # Changelog
+
+## [0.4.4](https://github.com/basicavisual/decidim-members/tree/0.4.4)
+
+### Added
+
+- Exports now include country, when available, and the nickname of the invited_by user
+
+### Changed
+
+Nothing.
+
+### Fixed
+
+Nothing.
+
+## [0.4.3](https://github.com/basicavisual/decidim-members/tree/0.4.3)
+
+### Added
+
+Nothing.
+
+### Changed
+
+Nothing.
+
+### Fixed
+
+- Stops registering this gem as a participatory_space and opts for registering as global engine. 
+
+
 ## [0.4.1](https://github.com/basicavisual/decidim-members/tree/0.4.1)
 
 ### Added
@@ -27,17 +57,3 @@ Nothing.
 ### Fixed
 
 - Updated profile pictures to use activestorage
-
-## [0.4.3](https://github.com/basicavisual/decidim-members/tree/0.4.3)
-
-### Added
-
-Nothing.
-
-### Changed
-
-Nothing.
-
-### Fixed
-
-- Stops registering this gem as a participatory_space and opts for registering as global engine. 
