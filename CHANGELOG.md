@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.5](https://github.com/basicavisual/decidim-members/tree/0.4.5)
+
+### Changed
+
+- Compatibility to Decidim Core now includes 0.26-stable
+
 ## [0.4.4](https://github.com/basicavisual/decidim-members/tree/0.4.4)
 
 ### Added
